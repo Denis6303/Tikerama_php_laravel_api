@@ -9,24 +9,13 @@ use App\Models\OrderIntent;
 class OrderIntentSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Exécuter les seeds de la base de données.
+     *
+     * @return void
      */
     public function run(): void
     {
-        OrderIntent::create([
-            'order_intent_price' => 100,
-            'order_intent_type' => 'reservation',
-            'user_email' => 'user1@example.com',
-            'user_phone' => '1234567890',
-            'expiration_date' => now()->addHours(2),
-        ]);
-
-        OrderIntent::create([
-            'order_intent_price' => 60,
-            'order_intent_type' => 'reservation',
-            'user_email' => 'user2@example.com',
-            'user_phone' => '0987654321',
-            'expiration_date' => now()->addHours(2),
-        ]);
+        // Crée 10 intentions de commande pour les tests
+        OrderIntent::factory()->count(400)->create();
     }
 }

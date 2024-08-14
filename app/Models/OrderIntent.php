@@ -9,10 +9,34 @@ class OrderIntent extends Model
 {
     use HasFactory;
 
-    protected $table = 'order_intents'; // Pour correspondre au nom de la table
+    protected $table = 'order_intents'; // Nom de la table
 
+    protected $fillable = [
+        'order_intent_price',
+        'order_intent_type',
+        'user_email',
+        'user_phone',
+        'expiration_date',
+    ];
+
+    protected $dates = [
+        'expiration_date',
+    ];
+
+    protected $primaryKey = 'order_intent_id'; // Assurez-vous que la clé primaire est correcte
+
+    public $incrementing = true;
+
+    protected $keyType = 'int';
+
+    /**
+     * Relation avec le modèle Ticket.
+     *
+     * Une intention de commande peut avoir plusieurs tickets associés.
+     */
     public function tickets()
     {
-        // Ajouter une relation si nécessaire
+        return $this->hasMany(Ticket::class, 'order_intent_id');
     }
 }
+

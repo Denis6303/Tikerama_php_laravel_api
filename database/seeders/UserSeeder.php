@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -13,16 +12,8 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'John Doe',
-            'email' => 'john.doe@example.com',
-            'password' => bcrypt('password'),
-        ]);
-
-        User::create([
-            'name' => 'Jane Smith',
-            'email' => 'jane.smith@example.com',
-            'password' => bcrypt('password'),
-        ]);
+        // Générer 100 utilisateurs fictifs
+        User::factory()->count(1000)->create();
     }
 }
+

@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Api\V1\TicketTypeController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,11 +21,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 /**
- * Récupérer la liste des events
+ * Récupérer la liste des évènements à venir
  */
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
     Route::apiResource('events', EventController::class);
 });
 
+/**
+* Récupérer tous les types de tickets disponibles pour un événement spécifique
+*/
+Route::get('events/{event}/ticket-types', [TicketTypeController::class, 'index']);
 
 
