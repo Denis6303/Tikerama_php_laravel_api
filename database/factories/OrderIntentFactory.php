@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\OrderIntent;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OrderIntent>
@@ -23,6 +25,7 @@ class OrderIntentFactory extends Factory
             'user_email' => $this->faker->unique()->safeEmail(), // Email de l’utilisateur
             'user_phone' => $this->faker->phoneNumber(), // Téléphone de l’utilisateur
             'expiration_date' => $this->faker->dateTimeBetween('now', '+1 week'), // Date d’expiration de l’intention de commande
+            'user_id' => User::factory(), // Associer un utilisateur existant via la fabrique User
         ];
     }
 }

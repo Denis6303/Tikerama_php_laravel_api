@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('order_payment'); // Mode de paiement
             $table->text('order_info')->nullable(); // Informations supplémentaires
             $table->timestamp('order_created_on')->useCurrent(); // Ajout du champ order_created_on
+            $table->unsignedBigInteger('user_id'); // Clé étrangère vers la table users
             $table->timestamps(); // Les colonnes `created_at` et `updated_at`
             
             // Clé étrangère
@@ -38,6 +39,11 @@ class CreateOrdersTable extends Migration
      */
     public function down(): void
     {
+        Schema::table('orders', function (Blueprint $table) {
+            // Supprimer la contrainte de clé étrangère avant de supprimer la colonne
+            $table->dropForeign(['user_id']);
+        });
+
         Schema::dropIfExists('orders');
     }
 }

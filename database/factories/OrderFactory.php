@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\Order;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
@@ -25,6 +27,7 @@ class OrderFactory extends Factory
             'order_payment' => $this->faker->word(), // Mode de paiement de la commande
             'order_info' => $this->faker->text(), // Informations supplémentaires sur la commande
             'order_created_on' => $this->faker->dateTime(), // Date de création de la commande
+            'user_id' => User::factory(), // Associer un utilisateur existant via la fabrique User
         ];
     }
 }

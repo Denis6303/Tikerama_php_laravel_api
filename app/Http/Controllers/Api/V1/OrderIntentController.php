@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\OrderIntent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class OrderIntentController extends Controller
 {
@@ -220,4 +222,153 @@ class OrderIntentController extends Controller
 
         return response()->json(null, 204);
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/v1/order-intents/{id}/validate",
+     *     tags={"Order Intents"},
+     *     summary="Validate an order intent",
+     *     description="Validate an order intent and generate a URL to download the tickets",
+     *     operationId="validateOrderIntent",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the order intent",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Validation successful and ticket URL generated",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="Order intent validated successfully."),
+     *             @OA\Property(property="download_url", type="string", example="https://example.com/download/tickets/123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Order intent not found"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error"
+     *     )
+     * )
+     */
+    public function validateOrderIntent($id)
+    {
+        try {
+            // Trouver l'intention de commande
+            $orderIntent = OrderIntent::findOrFail($id);
+
+            // Logique pour valider l'intention de commande
+            // Marquer l'intention comme validée
+            $orderIntent->order_intent_status = 'validated'; // Utilisez le champ correct
+            $orderIntent->save();
+
+            // Générez ou récupérez le fichier de tickets
+            // Cette partie dépend de la manière dont vous générez les tickets
+            $ticketFilePath = $this->generateTicketFile($orderIntent);
+
+            // Générer l'URL de téléchargement
+            $downloadUrl = URL::to(Storage::url($ticketFilePath));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Order intent validated successfully.',
+                'download_url' => $downloadUrl,
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Order intent not found.',
+            ], 404);
+        } catch (\Exception $e) {
+            // Log l'erreur pour les diagnostics
+            \Log::error('Error validating order intent: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to validate order intent.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Generate a ticket file for the order intent
+     * This method should handle the logic for creating a ticket file.
+     *
+     * @param OrderIntent $orderIntent
+     * @return string $filePath
+     */
+    private function generateTicketFile(OrderIntent $orderIntent)
+    {
+        // Exemple de logique pour générer un fichier de ticket
+        // Vous pouvez utiliser une bibliothèque comme dompdf, mPDF, etc., pour générer le PDF
+        $fileName = 'tickets/' . $orderIntent->id . '.pdf';
+        
+        // Créer un PDF ou un autre type de fichier de ticket
+        // Utilisez une bibliothèque comme dompdf, mPDF, ou tout autre générateur de PDF
+        // $pdf = PDF::loadView('pdf.ticket', compact('orderIntent'));
+        // Storage::put($fileName, $pdf->output());
+        
+        // Pour cet exemple, nous allons simplement simuler la création du fichier
+        Storage::put($fileName, 'Contenu du ticket');
+
+        return $fileName;
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/users/{user_id}/order-intents",
+     *     tags={"Order Intents"},
+     *     summary="Get a user orders intents",
+     *     description="Retrieve the list of a user orders intents",
+     *     operationId="GetOrdersIntents",
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="Page number",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="integer",
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="perPage",
+     *         in="query",
+     *         description="Number of items per page",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="integer",
+     *             default=10
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid status value"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Unable to fetch events"
+     *     )
+     * )
+     */
+    public function getOrderIntentsByUserId($user_id, Request $request)
+    {
+        // Récupérer les intentions de commande associées à l'utilisateur
+        $orderIntents = OrderIntent::where('user_id', $user_id)
+            ->paginate(10); // Pagination incluse
+
+        // Retourner les résultats en JSON
+        return response()->json($orderIntents);
+    }
+
 }

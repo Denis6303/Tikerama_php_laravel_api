@@ -16,6 +16,6 @@ class OrderIntentSeeder extends Seeder
     public function run(): void
     {
         // Crée 10 intentions de commande pour les tests
-        OrderIntent::factory()->count(400)->create();
+        OrderIntent::factory()->count(30)->create();
     }
 }

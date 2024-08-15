@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Générer 100 utilisateurs fictifs
-        User::factory()->count(1000)->create();
+        User::factory()->count(50)->create();
     }
 }
 

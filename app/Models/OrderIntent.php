@@ -38,5 +38,11 @@ class OrderIntent extends Model
     {
         return $this->hasMany(Ticket::class, 'order_intent_id');
     }
+
+    // Définir la relation avec le modèle User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
 

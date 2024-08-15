@@ -270,6 +270,48 @@
                 }
             }
         },
+        "/api/v1/users/{user_id}/orders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get a user orders",
+                "description": "Retrieve the list of a user orders",
+                "operationId": "GetOrders",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    },
+                    "500": {
+                        "description": "Unable to fetch events"
+                    }
+                }
+            }
+        },
         "/api/v1/order-intents": {
             "get": {
                 "tags": [
@@ -484,6 +526,101 @@
                     },
                     "404": {
                         "description": "Order intent not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/order-intents/{id}/validate": {
+            "post": {
+                "tags": [
+                    "Order Intents"
+                ],
+                "summary": "Validate an order intent",
+                "description": "Validate an order intent and generate a URL to download the tickets",
+                "operationId": "validateOrderIntent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the order intent",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation successful and ticket URL generated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Order intent validated successfully."
+                                        },
+                                        "download_url": {
+                                            "type": "string",
+                                            "example": "https://example.com/download/tickets/123"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Order intent not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/{user_id}/order-intents": {
+            "get": {
+                "tags": [
+                    "Order Intents"
+                ],
+                "summary": "Get a user orders intents",
+                "description": "Retrieve the list of a user orders intents",
+                "operationId": "GetOrdersIntents",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    },
+                    "500": {
+                        "description": "Unable to fetch events"
                     }
                 }
             }
@@ -766,6 +903,10 @@
         {
             "name": "Events",
             "description": "Events"
+        },
+        {
+            "name": "Orders",
+            "description": "Orders"
         },
         {
             "name": "Order Intents",
