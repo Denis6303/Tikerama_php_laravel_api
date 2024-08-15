@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\V1\OrderController;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\V1\TicketTypeController;
+use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\OrderIntentController;
 
 /**
  * 
