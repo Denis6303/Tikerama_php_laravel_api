@@ -20,7 +20,7 @@
                 ],
                 "summary": "Get all events",
                 "description": "Retrieve the list of upcoming events",
-                "operationId": "index",
+                "operationId": "GetEvent",
                 "parameters": [
                     {
                         "name": "page",
@@ -48,6 +48,442 @@
                     },
                     "400": {
                         "description": "Invalid status value"
+                    },
+                    "500": {
+                        "description": "Unable to fetch events"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Create a new event",
+                "description": "Create a new event with the provided details.",
+                "operationId": "StoreEvent",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "event_category",
+                                    "event_title",
+                                    "event_date",
+                                    "event_city",
+                                    "event_address",
+                                    "event_status"
+                                ],
+                                "properties": {
+                                    "event_category": {
+                                        "type": "string",
+                                        "example": "Music"
+                                    },
+                                    "event_title": {
+                                        "type": "string",
+                                        "example": "Concert de Rock"
+                                    },
+                                    "event_description": {
+                                        "type": "string",
+                                        "example": "Un concert de rock avec les plus grandes stars."
+                                    },
+                                    "event_date": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-09-15T20:00:00Z"
+                                    },
+                                    "event_image": {
+                                        "type": "string",
+                                        "example": "https://example.com/images/concert.jpg"
+                                    },
+                                    "event_city": {
+                                        "type": "string",
+                                        "example": "Paris"
+                                    },
+                                    "event_address": {
+                                        "type": "string",
+                                        "example": "Stade de France, 93216 Saint-Denis"
+                                    },
+                                    "event_status": {
+                                        "type": "string",
+                                        "example": "upcoming"
+                                    },
+                                    "event_created_on": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-08-14T12:00:00Z"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ticket type created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/api/v1/events/{event}": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get event by ID",
+                "description": "Retrieve details of a specific event by its ID.",
+                "operationId": "ShowEvent",
+                "parameters": [
+                    {
+                        "name": "event",
+                        "in": "path",
+                        "description": "ID of the event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Update an existing event",
+                "description": "Update details of an existing event by its ID.",
+                "operationId": "UpdateEvent",
+                "parameters": [
+                    {
+                        "name": "event",
+                        "in": "path",
+                        "description": "ID of the event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "event_category",
+                                    "event_title",
+                                    "event_date",
+                                    "event_city",
+                                    "event_address",
+                                    "event_status"
+                                ],
+                                "properties": {
+                                    "event_category": {
+                                        "type": "string",
+                                        "example": "Music"
+                                    },
+                                    "event_title": {
+                                        "type": "string",
+                                        "example": "Concert de Rock"
+                                    },
+                                    "event_description": {
+                                        "type": "string",
+                                        "example": "Un concert de rock avec les plus grandes stars."
+                                    },
+                                    "event_date": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-09-15T20:00:00Z"
+                                    },
+                                    "event_image": {
+                                        "type": "string",
+                                        "example": "https://example.com/images/concert.jpg"
+                                    },
+                                    "event_city": {
+                                        "type": "string",
+                                        "example": "Paris"
+                                    },
+                                    "event_address": {
+                                        "type": "string",
+                                        "example": "Stade de France, 93216 Saint-Denis"
+                                    },
+                                    "event_status": {
+                                        "type": "string",
+                                        "example": "upcoming"
+                                    },
+                                    "event_created_on": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-08-14T12:00:00Z"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Event updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Delete an event",
+                "description": "Delete a specific event by its ID.",
+                "operationId": "DestroyEvent",
+                "parameters": [
+                    {
+                        "name": "event",
+                        "in": "path",
+                        "description": "ID of the event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Event deleted successfully"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
+        },
+        "/api/v1/order-intents": {
+            "get": {
+                "tags": [
+                    "Order Intents"
+                ],
+                "summary": "Get all order intents",
+                "description": "Retrieve a list of order intents with pagination",
+                "operationId": "getOrderIntents",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    },
+                    "500": {
+                        "description": "Unable to fetch events"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Order Intents"
+                ],
+                "summary": "Create a new order intent",
+                "description": "Store a new order intent",
+                "operationId": "StoreOrderIntents",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "order_intent_price",
+                                    "order_intent_type",
+                                    "user_email",
+                                    "user_phone",
+                                    "expiration_date"
+                                ],
+                                "properties": {
+                                    "order_intent_price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 99.99
+                                    },
+                                    "order_intent_type": {
+                                        "type": "string",
+                                        "example": "VIP"
+                                    },
+                                    "user_email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "user_phone": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "expiration_date": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-12-31T23:59:59Z"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ticket type created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/api/v1/order-intents/{id}": {
+            "get": {
+                "tags": [
+                    "Order Intents"
+                ],
+                "summary": "Get a specific order intent",
+                "description": "Retrieve a specific order intent by ID",
+                "operationId": "ShowOrderIntents",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Order intent ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Order Intents"
+                ],
+                "summary": "Update an existing order intent",
+                "description": "Update an existing order intent by ID",
+                "operationId": "UpdateOrderIntents",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Order intent ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "order_intent_price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 99.99
+                                    },
+                                    "order_intent_type": {
+                                        "type": "string",
+                                        "example": "VIP"
+                                    },
+                                    "user_email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "user_phone": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "expiration_date": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-12-31T23:59:59Z"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Event updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Order Intents"
+                ],
+                "summary": "Delete an order intent",
+                "description": "Delete an existing order intent by ID",
+                "operationId": "DestroyOrderIntents",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Order intent ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Order intent deleted"
+                    },
+                    "404": {
+                        "description": "Order intent not found"
                     }
                 }
             }
@@ -98,6 +534,231 @@
                         "description": "Invalid status value"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Ticket Types"
+                ],
+                "summary": "Create a new ticket type for a specific event",
+                "description": "Create and store a new ticket type associated with a specific event.",
+                "operationId": "createTicketType",
+                "parameters": [
+                    {
+                        "name": "event",
+                        "in": "path",
+                        "description": "ID of the event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "ticket_type_name",
+                                    "ticket_type_price",
+                                    "ticket_type_quantity",
+                                    "ticket_type_real_quantity",
+                                    "ticket_type_total_quantity"
+                                ],
+                                "properties": {
+                                    "ticket_type_name": {
+                                        "type": "string",
+                                        "example": "VIP"
+                                    },
+                                    "ticket_type_price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 99.99
+                                    },
+                                    "ticket_type_quantity": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "ticket_type_real_quantity": {
+                                        "type": "integer",
+                                        "example": 90
+                                    },
+                                    "ticket_type_total_quantity": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "ticket_type_description": {
+                                        "type": "string",
+                                        "example": "VIP access with exclusive benefits."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ticket type created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/api/v1/events/{event}/ticket-types/{ticketType}": {
+            "get": {
+                "tags": [
+                    "Ticket Types"
+                ],
+                "summary": "Get a specific ticket type for a specific event",
+                "description": "Retrieve details of a specific ticket type for a given event.",
+                "operationId": "getTicketType",
+                "parameters": [
+                    {
+                        "name": "event",
+                        "in": "path",
+                        "description": "ID of the event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "ticketType",
+                        "in": "path",
+                        "description": "ID of the ticket type",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Ticket type not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Ticket Types"
+                ],
+                "summary": "Update a specific ticket type for a specific event",
+                "description": "Update details of a specific ticket type for a given event.",
+                "operationId": "updateTicketType",
+                "parameters": [
+                    {
+                        "name": "event",
+                        "in": "path",
+                        "description": "ID of the event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "ticketType",
+                        "in": "path",
+                        "description": "ID of the ticket type",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "ticket_type_name",
+                                    "ticket_type_price",
+                                    "ticket_type_quantity",
+                                    "ticket_type_real_quantity",
+                                    "ticket_type_total_quantity"
+                                ],
+                                "properties": {
+                                    "ticket_type_name": {
+                                        "type": "string",
+                                        "example": "VIP"
+                                    },
+                                    "ticket_type_price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 99.99
+                                    },
+                                    "ticket_type_quantity": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "ticket_type_real_quantity": {
+                                        "type": "integer",
+                                        "example": 90
+                                    },
+                                    "ticket_type_total_quantity": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "ticket_type_description": {
+                                        "type": "string",
+                                        "example": "VIP access with exclusive benefits."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ticket type updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Ticket Types"
+                ],
+                "summary": "Delete a specific ticket type for a specific event",
+                "description": "Delete a specific ticket type associated with a given event.",
+                "operationId": "deleteTicketType",
+                "parameters": [
+                    {
+                        "name": "event",
+                        "in": "path",
+                        "description": "ID of the event",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "ticketType",
+                        "in": "path",
+                        "description": "ID of the ticket type",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Ticket type deleted successfully"
+                    },
+                    "404": {
+                        "description": "Ticket type not found"
+                    }
+                }
             }
         }
     },
@@ -105,6 +766,10 @@
         {
             "name": "Events",
             "description": "Events"
+        },
+        {
+            "name": "Order Intents",
+            "description": "Order Intents"
         },
         {
             "name": "Ticket Types",
