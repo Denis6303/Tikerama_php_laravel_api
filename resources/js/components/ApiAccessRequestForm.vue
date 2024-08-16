@@ -6,6 +6,53 @@
       <p>Lien vers la documentation de l'API : <a :href="apiDocumentationUrl" target="_blank">http://127.0.0.1:8000/api/documentation</a></p>
       <strong><span>Documentation réalisée avec Swagger</span></strong>
       <div class="endpoints">
+        <h2>Lancement de l'application en local</h2>
+        <li>Installer les dépendances
+          <ul>
+            <li style="margin-left: 20px;"><i>composer install</i></li>
+            <li style="margin-left: 20px;"><i>npm install</i></li>
+          </ul>
+        </li>
+        <li>Configurer le fichier .env</li>
+        <li>Démarer le serveur local (WAMP, XAMP ...)</li>
+        <li>Créer la base de données</li>
+        <li>Faire les migrations : <i>php artisan migrate</i></li>
+        <li>Remplir la base de données avec les données tests
+          <ul>
+            <li style="margin-left: 20px;">Exécuter la commande des Factories pour les modèles</li>
+            <ul>
+              <li style="margin-left: 20px;"><i>php artisan make:factory EventFactory --model=Event</i></li>
+              <li style="margin-left: 20px;"><i>php artisan make:factory TicketFactory --model=Ticket</i></li>
+              <li style="margin-left: 20px;"><i>php artisan make:factory TicketTypeFactory --model=TicketType</i></li>
+              <li style="margin-left: 20px;"><i>php artisan make:factory OrderFactory --model=Order</i></li>
+              <li style="margin-left: 20px;"><i>php artisan make:factory OrderIntentFactory --model=OrderIntent</i></li>
+              <li style="margin-left: 20px;"><i>php artisan make:factory UserFactory --model=User</i></li>
+            </ul>
+            <li style="margin-left: 20px;">Créer les Seeders</li>
+            <ul>
+              <li style="margin-left: 20px;"><i>php artisan db:seed --class=UserSeeder</i></li>
+              <li style="margin-left: 20px;"><i>php artisan db:seed --class=EventSeeder</i></li>
+              <li style="margin-left: 20px;"><i>php artisan db:seed --class=TicketSeeder</i></li>
+              <li style="margin-left: 20px;"><i>php artisan db:seed --class=TicketTypeSeeder</i></li>
+              <li style="margin-left: 20px;"><i>php artisan db:seed --class=OrderSeeder</i></li>
+              <li style="margin-left: 20px;"><i>php artisan db:seed --class=OrderIntentSeeder</i></li>
+            </ul>
+          </ul>
+        </li>
+        <li>Lancer le serveur de développement Laravel : <i>php artisan serve</i></li>
+        <li>Lancer le serveur de développement Vue : <i>npm run dev</i></li>
+        <li>Générer la documentation : <i>php artisan l5-swagger:generate</i></li>
+        <li>Tester les API via la documentation : <a :href="apiDocumentationUrl" target="_blank">http://127.0.0.1:8000/api/documentation</a> 
+          <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ou uitliser un outil comme Postman.
+        </li>
+        <li>Commandes des caches
+          <ul>
+            <li style="margin-left: 20px;"><i>php artisan route:cache</i></li>
+            <li style="margin-left: 20px;"><i>php artisan view:cache</i></li>
+            <li style="margin-left: 20px;"><i>php artisan config:cache</i></li>
+          </ul>
+        </li>
+
         <h2>API Endpoints</h2>
         <ul>
           <p>EVENEMENTS</p>
