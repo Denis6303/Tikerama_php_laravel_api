@@ -7,17 +7,20 @@
       <strong><span>Documentation réalisée avec Swagger</span></strong>
       <div class="endpoints">
         <h2>Lancement de l'application en local</h2>
-        <li>Installer les dépendances
+        <li><b>Installer les dépendances</b>
           <ul>
             <li style="margin-left: 20px;"><i>composer install</i></li>
             <li style="margin-left: 20px;"><i>npm install</i></li>
           </ul>
         </li>
-        <li>Configurer le fichier .env</li>
-        <li>Démarer le serveur local (WAMP, XAMP ...)</li>
-        <li>Créer la base de données</li>
-        <li>Faire les migrations : <i>php artisan migrate</i></li>
-        <li>Remplir la base de données avec les données tests
+        <li><b>Configurer le fichier .env</b> : <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j'ai envoyé sur le repos GitHub mon fichier .env ! <br> 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dedans, il y a entre autre la configuration pour <br> 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;envoyer l'email de requête d'accès aux API avec gmail.<br>
+        </li>
+        <li><b>Démarer le serveur local (WAMP, XAMP ...)</b></li>
+        <li><b>Créer la base de données</b></li>
+        <li><b>Faire les migrations</b> : <i>php artisan migrate</i></li>
+        <li><b>Remplir la base de données avec les données tests</b>
           <ul>
             <li style="margin-left: 20px;">Exécuter la commande des Factories pour les modèles</li>
             <ul>
@@ -39,13 +42,13 @@
             </ul>
           </ul>
         </li>
-        <li>Lancer le serveur de développement Laravel : <i>php artisan serve</i></li>
-        <li>Lancer le serveur de développement Vue : <i>npm run dev</i></li>
-        <li>Générer la documentation : <i>php artisan l5-swagger:generate</i></li>
-        <li>Tester les API via la documentation : <a :href="apiDocumentationUrl" target="_blank">http://127.0.0.1:8000/api/documentation</a> 
+        <li><b>Lancer le serveur de développement Laravel</b> : <i>php artisan serve</i></li>
+        <li><b>Lancer le serveur de développement Vue</b> : <i>npm run dev</i></li>
+        <li><b>Générer la documentation</b> : <i>php artisan l5-swagger:generate</i></li>
+        <li><b>Tester les API via la documentation</b> : <a :href="apiDocumentationUrl" target="_blank">http://127.0.0.1:8000/api/documentation</a> 
           <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ou uitliser un outil comme Postman.
         </li>
-        <li>Commandes des caches
+        <li><b>Commandes pour les caches</b>
           <ul>
             <li style="margin-left: 20px;"><i>php artisan route:cache</i></li>
             <li style="margin-left: 20px;"><i>php artisan view:cache</i></li>
@@ -55,31 +58,31 @@
 
         <h2>API Endpoints</h2>
         <ul>
-          <p>EVENEMENTS</p>
+          <p><b>EVENEMENTS</b></p>
           <li><span>GET /api/v1/events</span> => Récupérer tous les évènements</li>
           <li><span>POST /api/v1/events</span> => Créer un nouvel évènement</li>
           <li><span>GET /api/v1/events/{event}</span> => Afficher un évènement</li>
           <li><span>PUT /api/v1/events/{event}</span> => Mettre à jour un èvènement</li>
           <li><span>DELETE /api/v1/events/{event}</span> => Supprimer un évènement</li>
-          <p>TYPES DE TICKETS</p>
+          <p><b>TYPES DE TICKETS</b></p>
           <li><span>GET /api/v1/events/{event_id}/ticket-types</span> => Récupérer tous les types de tickets</li>
           <li><span>POST /api/v1/events/{event_id}/ticket-types</span> => Créer un nouveau type de ticket</li>
           <li><span>GET /api/v1/events/{event_id}/ticket-types/{ticket_type_id}</span> => Afficher un type de ticket</li>
           <li><span>PUT /api/v1/events/{event_id}/ticket-types/{ticket_type_id}</span> => Mettre à jour un type de ticket</li>
           <li><span>DELETE /api/v1/events/{event_id}/ticket-types/{ticket_type_id}</span> => Supprimer un type de ticket     </li>
-          <p>INTENTIONS DE COMMANDE</p>
+          <p><b>INTENTIONS DE COMMANDE</b></p>
           <li><span>GET /api/v1/order-intents</span> => Récupérer les intentions de commande</li>
           <li><span>POST /api/v1/order-intents</span> => Créer une intention de commande</li>
           <li><span>GET /api/v1/order-intents/{order_intent}</span> => Afficher une intention de commande</li>
           <li><span>PUT /api/v1/order-intents/{order_intent}</span> => Mettre à jour une intentio de commande</li>
           <li><span>DELETE /api/v1/order-intents/{order_intent}</span> => Supprimer une intention de commande</li>
-          <p>VALIDER UNE INTENTION DE COMMANDE</p>
+          <p><b>VALIDER UNE INTENTION DE COMMANDE</b></p>
           <li><span>POST /api/v1/order-intents/{id}/validate</span></li>
-          <p>CONSULTER LES COMMANDES EFFECTUEES PAR UN CLIENT</p>
+          <p><b>CONSULTER LES COMMANDES EFFECTUEES PAR UN CLIENT</b></p>
           <li><span>GET /api/v1/users/{user_id}/orders</span> => Récupérer les commandes liées à un client</li>
-          <p>RECUPERER LES INTENTIONS DE COMMANDE D'UN CLIENT</p>
+          <p><b>RECUPERER LES INTENTIONS DE COMMANDE D'UN CLIENT</b></p>
           <li><span>GET /api/v1/users/{user_id}/order-intents</span> => Récupérer les intentions de commandes d'un client</li>
-          <p>DEMANDE D'ACCES a L'API</p>
+          <p><b>DEMANDE D'ACCES a L'API</b></p>
           <li><span>POST /api-access-request</span> => Faire une requête d'accès aux API</li>
         </ul>
       </div>
