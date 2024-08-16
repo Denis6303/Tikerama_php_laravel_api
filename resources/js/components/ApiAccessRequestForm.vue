@@ -3,7 +3,8 @@
     <div class="left-section">
       <h1>TIKERAMA API MANAGEMENT</h1>
       <p><strong>TIKERAMA</strong> TIKERAMA est une plateforme spécialisée dans la distribution d'API. Nous proposons une variété d'API pour différents besoins. Découvrez nos services et trouvez l'API adaptée à vos projets.</p>
-      <p><a :href="apiDocumentationUrl" target="_blank">Voir la documentation de l'API</a></p>
+      <p>Lien vers la documentation de l'API : <a :href="apiDocumentationUrl" target="_blank">http://127.0.0.1:8000/api/documentation</a></p>
+      <strong><span>Documentation réalisée avec Swagger</span></strong>
       <div class="endpoints">
         <h2>API Endpoints</h2>
         <ul>
@@ -48,7 +49,7 @@
           <input v-model="form.last_name" type="text" id="last_name" required>
         </div>
         <div class="form-group">
-          <label for="company">Service:</label>
+          <label for="company">Entreprise :</label>
           <input v-model="form.company" type="text" id="company" required>
         </div>
         <div class="form-group">
@@ -123,7 +124,7 @@ html, body {
   overflow-x: hidden;
 }
 
-h1, h2, p, label, span, .footer, li {
+h1, h2, p, label, span, .footer, li, strong {
   font-family: 'Century Gothic', 'Arial', sans-serif;
 }
 
@@ -227,5 +228,10 @@ a:hover {
 li > span {
   color: #218838; /* Change la couleur du texte en vert */
   font-weight: bold; /* Optionnel : rend le texte en gras */
+}
+
+strong > span {
+  font-size: 11px;
+  color: rgb(233, 64, 64);
 }
 </style>
