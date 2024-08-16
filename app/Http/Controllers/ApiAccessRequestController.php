@@ -11,6 +11,35 @@ use Illuminate\Routing\Controller;  // Add this line
 
 class ApiAccessRequestController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api-access-request",
+     *     tags={"Access Request"},
+     *     summary="Create a new Access Request",
+     *     description="Create a Access Request.",
+     *     operationId="StoreAccessRequest",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"first_name", "last_name", "company", "email", "city", "address"},
+     *             @OA\Property(property="first_name", type="string"),
+     *             @OA\Property(property="last_name", type="string"),
+     *             @OA\Property(property="company", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="city", type="string"),
+     *             @OA\Property(property="address", type="string"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Ticket type created successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid input"
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         \Log::info('Received request: ', $request->all());

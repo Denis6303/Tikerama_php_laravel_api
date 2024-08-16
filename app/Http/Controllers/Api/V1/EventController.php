@@ -66,7 +66,7 @@ class EventController extends Controller
         }
     }
 
-        /**
+    /**
      * @OA\Post(
      *     path="/api/v1/events",
      *     tags={"Events"},
